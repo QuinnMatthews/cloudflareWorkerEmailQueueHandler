@@ -1,0 +1,2 @@
+# Cloudflare Worker Email Queue Handler
+A simple project that takes messages in a cloudflare queue and send them to a defined API endpoint. I use this in conjuction with [my Azure notification relay project](https://github.com/QuinnMatthews/QLMLabs.NotificationRelay) in order to centralize requests from my Cloudflare projects and to enable faster response times for user facing web pages.
