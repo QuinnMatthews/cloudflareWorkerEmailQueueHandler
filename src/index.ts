@@ -1,5 +1,5 @@
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
+	async fetch(): Promise<Response> {
 		// Return 404
 		return new Response(null, { status: 404 });
 	},
@@ -15,10 +15,7 @@ export default {
 					'Content-Type': 'application/json',
 					'x-functions-key': env.RELAY_KEY,
 				},
-				body: JSON.stringify({
-					Email: message.body.to,
-					Message: message.body.message,
-				}),
+				body: JSON.stringify(message.body),
 			});
 
 			if (response.ok) {
@@ -31,7 +28,12 @@ export default {
 	},
 } satisfies ExportedHandler<Env, EmailMessageItem>;
 
+
+// Define the shape of the message payload, should match the expected structure of the downstream service
 interface EmailMessageItem {
-	to: string;
-	message: string;
+	To: Array<string>;
+	CC: Array<string> | undefined;
+	BCC: Array<string> | undefined;
+	Subject: string | undefined;
+	Message: string;
 }
